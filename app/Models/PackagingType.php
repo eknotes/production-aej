@@ -14,7 +14,6 @@ class PackagingType extends Model
 
     protected $fillable = [
         'name',
-        'conversion_quantity',
         'content_unit',
         'status'
     ];

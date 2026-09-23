@@ -419,7 +419,6 @@
                                 <input type="text" name="name" required class="saas-input"
                                     placeholder="Masukkan jenis kemasan">
                             </div>
-                            <input type="hidden" name="conversion_quantity" value="1">
                             <input type="hidden" name="content_unit" value="Pcs">
                             <div class="relative">
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Status
@@ -481,7 +480,6 @@
                                     Kemasan <span class="text-red-500">*</span></label>
                                 <input type="text" id="edit_name" name="name" required class="saas-input">
                             </div>
-                            <input type="hidden" name="conversion_quantity" value="1">
                             <input type="hidden" name="content_unit" value="Pcs">
                             <div class="relative">
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">Status
