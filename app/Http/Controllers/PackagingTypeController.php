@@ -47,7 +47,7 @@ class PackagingTypeController extends Controller
             'products.*' => 'exists:products,id'
         ]);
 
-        $packagingType = PackagingType::create($request->except('products'));
+        $packagingType = PackagingType::create($request->only(['name', 'status', 'content_unit']));
 
         if ($request->has('products')) {
             Product::whereIn('id', $request->products)->update(['packaging_type_id' => $packagingType->id]);
