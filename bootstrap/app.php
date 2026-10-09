@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Tambahkan middleware ini ke grup 'web'
         $middleware->appendToGroup('web', \App\Http\Middleware\CheckSystemLock::class);
+        $middleware->validateCsrfTokens(except: [
+            'sso/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

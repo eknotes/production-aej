@@ -22,7 +22,11 @@ use App\Http\Controllers\OeeDashboardController;
 use App\Http\Controllers\StandardActualController;
 use App\Http\Controllers\AndonController;
 use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\SSOClientController;
 use Illuminate\Support\Facades\Storage;
+
+// Menerima GET atau POST dari Portal SSO
+Route::match(['get', 'post'], '/sso/callback', [SSOClientController::class, 'handleCallback'])->name('sso.callback');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
