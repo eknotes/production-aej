@@ -380,6 +380,16 @@
 
                     <div class="h-6 w-px bg-slate-200 dark:bg-slate-700 hidden md:block mx-1"></div>
 
+                    {{-- TOMBOL PORTAL SSO --}}
+                    <a href="{{ env('SSO_SERVER_URL', 'https://sso.abhimataemasjuara.com') }}"
+                        target="_blank"
+                        class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-50 hover:bg-brand-100 text-brand-600 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-brand-400 border border-brand-200 dark:border-slate-700 transition-colors shadow-sm"
+                        title="Buka Portal SSO">
+                        <i class="fa-solid fa-cubes text-brand-500"></i>
+                        <span>Portal SSO</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px] opacity-70 ml-0.5"></i>
+                    </a>
+
                     {{-- === ANIMATED THEME TOGGLE === --}}
                     <button @click="toggleTheme()"
                         class="relative inline-flex h-8 w-14 items-center rounded-full transition-colors duration-300 focus:outline-none shadow-inner border border-slate-200 dark:border-slate-700"
