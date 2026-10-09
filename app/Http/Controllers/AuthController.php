@@ -7,8 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->has('direct') || $request->input('direct') != '1') {
+            $ssoUrl = env('SSO_SERVER_URL', 'https://sso.abhimataemasjuara.com');
+            return redirect($ssoUrl);
+        }
+
         return view('auth.login');
     }
 
