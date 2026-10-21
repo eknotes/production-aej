@@ -42,13 +42,17 @@
     window.updateActiveStatus = function(batchId) {
         const checkbox = document.getElementById('toggle_' + batchId);
         const isActive = checkbox.checked;
+        const csrfToken = $('meta[name="csrf-token"]').attr('content') || '{{ csrf_token() }}';
 
         $.ajax({
-            // [PERBAIKAN 1]: Hapus /ppic
-            url: '/batches/' + batchId + '/toggle-active',
-            type: 'PATCH',
+            url: '{{ url('/batches') }}/' + batchId + '/toggle-active',
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
             data: {
-                _token: '{{ csrf_token() }}'
+                _token: csrfToken,
+                _method: 'PATCH'
             },
             success: function(response) {
                 Swal.fire({
@@ -67,11 +71,18 @@
                 });
             },
             error: function(xhr) {
+                console.error(xhr);
                 checkbox.checked = !isActive; // Kembalikan posisi toggle
+                let errorMsg = 'Terjadi kesalahan saat mengubah status.';
+                if (xhr.status === 419) {
+                    errorMsg = 'Sesi Anda telah berakhir / CSRF kedaluwarsa. Silakan refresh halaman dan coba kembali.';
+                } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMsg = xhr.responseJSON.message;
+                }
                 Swal.fire({
                     icon: 'error',
-                    title: 'Gagal',
-                    text: 'Terjadi kesalahan saat mengubah status.'
+                    title: xhr.status === 419 ? 'Sesi Berakhir' : 'Gagal',
+                    text: errorMsg
                 });
             }
         });
@@ -97,12 +108,17 @@
             }
         }).then((result) => {
             if (result && result.isConfirmed) {
+                const csrfToken = $('meta[name="csrf-token"]').attr('content') || '{{ csrf_token() }}';
+
                 $.ajax({
-                    // [PERBAIKAN 2]: Hapus /ppic
-                    url: '/batches/' + batchId + '/toggle-lock',
-                    type: 'PATCH',
+                    url: '{{ url('/batches') }}/' + batchId + '/toggle-lock',
+                    type: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
                     data: {
-                        _token: '{{ csrf_token() }}'
+                        _token: csrfToken,
+                        _method: 'PATCH'
                     },
                     success: function(response) {
                         if (response.success) {
@@ -149,16 +165,22 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal',
-                                text: 'Gagal mengubah status lock.'
+                                text: response.message || 'Gagal mengubah status lock.'
                             });
                         }
                     },
                     error: function(xhr) {
                         console.error(xhr);
+                        let errorMsg = 'Terjadi kesalahan sistem.';
+                        if (xhr.status === 419) {
+                            errorMsg = 'Sesi Anda telah berakhir / CSRF kedaluwarsa. Silakan refresh halaman dan coba kembali.';
+                        } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                            errorMsg = xhr.responseJSON.message;
+                        }
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
-                            text: 'Terjadi kesalahan sistem.'
+                            title: xhr.status === 419 ? 'Sesi Berakhir' : 'Error',
+                            text: errorMsg
                         });
                     }
                 });

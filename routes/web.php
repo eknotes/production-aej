@@ -68,8 +68,8 @@ Route::middleware('auth')->group(function () {
         Route::post('import', 'importExcel')->name('import');
         Route::get('export-excel', 'exportExcel')->name('export-excel');
         Route::get('export-pdf', 'exportPdf')->name('export-pdf');
-        Route::patch('{batch}/toggle-active', 'toggleActive')->name('toggle-active');
-        Route::patch('{batch}/toggle-lock', 'toggleLock')->name('toggle-lock');
+        Route::match(['patch', 'post'], '{batch}/toggle-active', 'toggleActive')->name('toggle-active');
+        Route::match(['patch', 'post'], '{batch}/toggle-lock', 'toggleLock')->name('toggle-lock');
     });
     Route::resource('batches', BatchController::class);
 
