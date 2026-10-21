@@ -149,7 +149,7 @@
                             if (response.is_locked) {
                                 icon.removeClass('fa-lock-open').addClass('fa-lock');
                                 btn.attr('title', 'Unlock (Ubah Status ke Running)');
-                                actionsContainer.find('.btn-edit, .delete-form').hide();
+                                actionsContainer.find('.delete-form').hide();
                                 statusBadge.removeClass(
                                         'bg-emerald-100 text-emerald-700 bg-blue-100 text-blue-700'
                                     )
@@ -157,7 +157,7 @@
                             } else {
                                 icon.removeClass('fa-lock').addClass('fa-lock-open');
                                 btn.attr('title', 'Lock (Ubah Status ke Completed)');
-                                actionsContainer.find('.btn-edit, .delete-form').show();
+                                actionsContainer.find('.delete-form').show();
                                 statusBadge.removeClass('bg-indigo-100 text-indigo-700')
                                     .addClass('bg-emerald-100 text-emerald-700');
                             }

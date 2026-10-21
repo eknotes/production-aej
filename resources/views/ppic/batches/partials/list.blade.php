@@ -148,7 +148,7 @@
                     @if (in_array(auth()->user()->role, ['admin', 'super_admin']))
                         <button onclick="window.openEditModal({{ $batch->toJson() }})"
                             class="btn-edit p-2 rounded-lg text-slate-400 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-900/20 dark:hover:text-amber-400 transition-colors"
-                            title="Edit Batch" style="{{ $isLocked ? 'display:none;' : '' }}"><i
+                            title="Edit Batch"><i
                                 class="fas fa-pen"></i></button>
                         @if (!$isLocked)
                             <form action="{{ route('batches.destroy', $batch->id) }}" method="POST"
